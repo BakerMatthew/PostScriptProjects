@@ -1,0 +1,152 @@
+%!PS
+% Matt Baker
+
+%% Functions %%
+/F {
+	0 eq {
+		10 0 rlineto
+	} if 
+} def
+
+/+ {
+	angle rotate
+} def
+/- {
+	angle neg rotate
+} def
+
+/b {
+	gsave
+} def
+/e {
+	stroke
+	grestore
+} def
+
+/inch {
+	72 mul
+} def
+
+%% Program Start %%
+
+% Dragon Curve %
+
+% start: X
+% X = X+YF+
+% Y = -FX-Y
+% F =
+
+/fsize {
+	9
+} def
+/angle {
+	85
+} def
+
+/X {
+	dup 0 ne {
+	1 sub
+	3 { dup } repeat X + Y F +
+	} if
+	pop
+} def
+/Y {
+	dup 0 ne {
+		1 sub
+		3 { dup } repeat - F X - Y
+	} if
+	pop
+} def
+
+b
+1 inch 2.5 inch translate
+20 rotate
+newpath
+0 0 moveto
+fsize X
+e
+
+% Plant %
+
+% start: Y
+% X = X[-FFF][+FFF]FX
+% Y = YFX[+Y][-Y]
+
+/fsize {
+	6
+} def
+/angle {
+	22.5
+} def
+
+/b {
+	gsave
+	dup fsize 4 sub exch sub 0.33 mul exch % red
+	fsize exch sub 0.1 mul exch % green
+	0 % blue
+	setrgbcolor
+} def
+
+/X {
+	dup 0 ne {
+	1 sub
+	11 { dup } repeat X b - F F F e b + F F F e F X
+	} if
+	pop
+} def
+/Y {
+	dup 0 ne {
+		1 sub
+		7 { dup } repeat Y F X b + Y e b - Y e
+	} if
+	pop
+} def
+
+fsize b
+4.25 inch 1.25 inch translate
+90 rotate
+newpath
+0 0 moveto
+fsize Y
+e
+
+% Box %
+
+% start: X
+% X = -YF+XFX+FY-
+% Y = +XF-YFY-FX+
+
+/fsize {
+	5
+} def
+/angle {
+	89.66
+} def
+/b {
+	gsave
+} def
+
+/X {
+	dup 0 ne {
+	1 sub
+	7 { dup } repeat - Y F + X F X + F Y -
+	} if
+	pop
+} def
+/Y {
+	dup 0 ne {
+		1 sub
+		7 { dup } repeat + X F - Y F Y - F X +
+	} if
+	pop
+} def
+
+b
+5.5 inch 4 inch translate
+0.875 setlinewidth
+newpath
+0 0 moveto
+fsize X
+e
+
+showpage
